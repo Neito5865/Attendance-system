@@ -17,12 +17,9 @@
     font-weight: bold;
 }
 
-.time-form {
+.time-form__content {
     width: 80%;
     margin: 0 auto;
-}
-
-.time-form__content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -45,6 +42,7 @@
     font-size: 24px;
     font-weight: bold;
     padding: 0;
+    cursor: pointer;
 }
 
 .time-form__button:nth-of-type(3),

@@ -7,26 +7,38 @@
 @section('content')
 <div class="content">
     <div class="time-message">
+        @if(Auth::check())
         <p class="time-message__text">
-            ユーザーさんお疲れ様です！
+            {{Auth::user()->name}}さんお疲れ様です！
         </p>
+        @endif
     </div>
-    <form class="time-form" action="" method="">
-        <div class="time-form__content">
+    <div class="time-form__content">
+        <form class="time-form" action="/time_in" method="post">
+        @csrf
             <div class="time-form__button">
                 <input class="time-form__button-submit" type="submit" value="勤務開始">
             </div>
+        </form>
+        <form class="time-form" action="/time_out" method="post">
+        @csrf
             <div class="time-form__button">
                 <input class="time-form__button-submit" type="submit" value="勤務終了">
             </div>
+        </form>
+        <form class="time-form" action="/break_in" method="post">
+        @csrf
             <div class="time-form__button">
                 <input class="time-form__button-submit" type="submit" value="休憩開始">
             </div>
+        </form>
+        <form class="time-form" action="/break_out" method="post">
+        @csrf
             <div class="time-form__button">
                 <input class="time-form__button-submit" type="submit" value="休憩終了">
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 @endsection
