@@ -10,6 +10,8 @@ class TimeController extends Controller
         return view('stamp');
     }
 
+    
+
     public function attendance(){
         return view('attendance');
     }
