@@ -14,7 +14,7 @@
         @endif
     </div>
     <div class="time-form__content">
-        <form class="time-form" action="/time_in" method="post">
+        <form class="time-form" action="/work_in" method="post">
         @csrf
             <div class="time-form__button">
                 <input class="time-form__button-submit" type="submit" value="勤務開始">
