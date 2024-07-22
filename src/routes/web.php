@@ -16,5 +16,6 @@ use App\Http\Controllers\TimeController;
 
 Route::middleware('auth')->group(function(){
     Route::get('/', [TimeController::class, 'stamp']);
+    Route::post('/work_in', [TimeController::class, 'workIn']);
     Route::get('/attendance', [TimeController::class, 'attendance']);
 });

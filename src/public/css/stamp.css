@@ -1,3 +1,9 @@
+.stamp__alert--success{
+    padding: 10px 30px;
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
 .content {
     max-width: 1310px;
     margin: 0 auto;

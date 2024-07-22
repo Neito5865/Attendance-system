@@ -11,13 +11,16 @@ class Timestamp extends Model
 
     protected $fillable =[
         'user_id',
-        'time_in',
-        'time_out',
-        'break_in',
-        'break_out',
+        'status',
+        'work_in',
+        'work_out',
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function breakstamps(){
+        return $this->hasMany(Breakstamp::class);
     }
 }
