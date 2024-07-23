@@ -34,7 +34,18 @@ class TimeController extends Controller
     }
 
     public function workOut(Request $request){
+        $user = Auth::user();
+        $timestamp = Timestamp::where('user_id', $user->id)
+        ->where(function($query){
+            $query->where('status', 2)->orWhere('status', 3);
+        })->first();
 
+        if($timestamp){
+            $timestamp->update([
+            'work_out' => Carbon::now(),
+            'status' => 1,
+            ]);
+        }
         return redirect('/')->with('message', '勤務を終了しました');
     }
 
