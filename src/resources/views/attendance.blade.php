@@ -6,7 +6,15 @@
 
 @section('content')
 <div class="content">
-    <div class="date">日付</div>
+    <div class="date-nav">
+        <a class="date-nav__link" href="{{route('attendance', ['date' => \Carbon\Carbon::parse($date)->subDay()->toDateString()])}}">
+            <button>＜</button>
+        </a>
+        <div class="date-nav__date">{{$date}}</div>
+        <a class="date-nav__link" href="{{route('attendance', ['date' => \Carbon\Carbon::parse($date)->addDay()->toDateString()])}}">
+            <button>＞</button>
+        </a>
+    </div>
     <div class="attendance-table">
         <table class="attendance-table__inner">
             <tr class="attendance-table__row">
@@ -16,27 +24,15 @@
                 <th class="attendance-table__heading">休憩時間</th>
                 <th class="attendance-table__heading">勤務時間</th>
             </tr>
+            @foreach($attendances as $attendance)
             <tr class="attendance-table__row">
-                <td class="attendance-table__item">テスト太郎</td>
-                <td class="attendance-table__item">10:00:00</td>
-                <td class="attendance-table__item">20:00:00</td>
-                <td class="attendance-table__item">00:30:00</td>
-                <td class="attendance-table__item">09:30:00</td>
+                <td class="attendance-table__item">{{$attendance->user->name}}</td>
+                <td class="attendance-table__item">{{$attendance->work_in}}</td>
+                <td class="attendance-table__item">{{$attendance->work_out}}</td>
+                <td class="attendance-table__item">-</td>
+                <td class="attendance-table__item">-</td>
             </tr>
-            <tr class="attendance-table__row">
-                <td class="attendance-table__item">テスト太郎</td>
-                <td class="attendance-table__item">10:00:00</td>
-                <td class="attendance-table__item">20:00:00</td>
-                <td class="attendance-table__item">00:30:00</td>
-                <td class="attendance-table__item">09:30:00</td>
-            </tr>
-            <tr class="attendance-table__row">
-                <td class="attendance-table__item">テスト太郎</td>
-                <td class="attendance-table__item">10:00:00</td>
-                <td class="attendance-table__item">20:00:00</td>
-                <td class="attendance-table__item">00:30:00</td>
-                <td class="attendance-table__item">09:30:00</td>
-            </tr>
+            @endforeach
         </table>
     </div>
 

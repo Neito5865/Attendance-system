@@ -90,7 +90,9 @@ class TimeController extends Controller
         return redirect('/')->with('error', '勤務中ではないため、休憩終了の操作ができません');
     }
 
-    public function attendance(){
-        return view('attendance');
+    public function attendance(Request $request){
+        $date = $request->query('date', Carbon::today()->toDateString());
+        $attendances = Timestamp::whereDate('work_in', $date)->with('user')->get();
+        return view('attendance', compact('date', 'attendances'));
     }
 }
