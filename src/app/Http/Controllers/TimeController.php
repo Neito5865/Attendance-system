@@ -50,11 +50,44 @@ class TimeController extends Controller
     }
 
     public function breakIn(Request $request){
-        return redirect('/')->with('message', '休憩を開始しました');
+        $user = Auth::user();
+        $timestamp = Timestamp::where('user_id', $user->id)->where('status', 2)->latest()->first();
+
+        if($timestamp){
+            Breakstamp::create([
+                'timestamp_id' => $timestamp->id,
+                'break_in' => Carbon::now(),
+            ]);
+
+            $timestamp->update([
+                'status' => 3,
+            ]);
+
+            return redirect('/')->with('message', '休憩を開始しました');
+        }
+        return redirect('/')->with('error', '勤務中ではないため、休憩開始の操作ができません');
     }
 
     public function breakOut(Request $request){
-        return redirect('/')->with('message', '休憩を終了しました');
+        $user = Auth::user();
+        $timestamp = Timestamp::where('user_id', $user->id)->where('status', 3)->latest()->first();
+
+        if($timestamp){
+            $break = Breakstamp::where('timestamp_id', $timestamp->id)->whereNull('break_out')->latest()->first();
+
+            if($break){
+                $break->update([
+                    'break_out' => Carbon::now(),
+                ]);
+                $timestamp->update([
+                    'status' => 2,
+                ]);
+                return redirect('/')->with('message', '休憩を終了しました');
+            }
+
+            return redirect('/')->with('error', '休憩開始されていません');
+        }
+        return redirect('/')->with('error', '勤務中ではないため、休憩終了の操作ができません');
     }
 
     public function attendance(){
