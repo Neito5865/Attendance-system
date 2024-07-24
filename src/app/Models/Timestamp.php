@@ -47,16 +47,20 @@ class Timestamp extends Model
         }else{
             return '-';
         }
-
     }
 
     public function getWorkTimeAttribute(){
         if($this->work_in && $this->work_out){
-            $diffInSeconds = $this->work_out->diffInSeconds($this->work_in);
+            $workTimeInSeconds = $this->work_out->diffInSeconds($this->work_in);
+            $breakTimeInSeconds = $this->breakstamps->sum(function($break){
+                return $break->break_in && $break->break_out ? $break->break_out->diffInSeconds($break->break_in): 0;
+            });
 
-            $hours = floor($diffInSeconds / 3600);
-            $minutes = floor(($diffInSeconds % 3600) / 60);
-            $seconds = $diffInSeconds % 60;
+            $netWorkTimeInSeconds = $workTimeInSeconds - $breakTimeInSeconds;
+
+            $hours = floor($netWorkTimeInSeconds / 3600);
+            $minutes = floor(($netWorkTimeInSeconds % 3600) / 60);
+            $seconds = $netWorkTimeInSeconds % 60;
 
             return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
         }else{
