@@ -5,12 +5,30 @@
     padding-bottom: 165px;
 }
 
-.date {
+.date-nav {
     padding-bottom: 60px;
     font-size: 24px;
     font-weight: bold;
-    text-align: center;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
 }
+.date-nav__button{
+    display: block;
+    width: 40px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #214BE0;
+}
+.date-nav__link{
+    text-decoration: none;
+    color: #214BE0;
+}
+.date-nav__date{
+    line-height: 30px;
+}
+
 
 .attendance-table__row {
     border-top: 1px solid #909090;
