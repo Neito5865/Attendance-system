@@ -3,6 +3,11 @@
     background-color: #d1e7dd;
     color: #0f5132;
 }
+.stamp__alert--error {
+    padding: 10px 30px;
+    background-color: #ffdede;
+    color: #c52626;
+}
 
 .content {
     max-width: 1310px;

@@ -11,6 +11,11 @@
         {{session('message')}}
     </div>
     @endif
+    @if(session('error'))
+    <div class="stamp__alert--error">
+        {{session('error')}}
+    </div>
+    @endif
 </div>
 <div class="content">
     <div class="time-message">

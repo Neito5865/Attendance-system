@@ -25,6 +25,12 @@ class TimeController extends Controller
 
     public function workIn(Request $request){
         $user = Auth::user();
+        $existingTimestamp = Timestamp::where('user_id', $user->id)->where('status', 2)->whereNull('work_out')->first();
+
+        if($existingTimestamp){
+            return redirect('/')->with('error', 'すでに勤務を開始しています');
+        }
+
         Timestamp::create([
             'user_id' => $user->id,
             'work_in' => Carbon::now(),
