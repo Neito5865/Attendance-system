@@ -82,9 +82,11 @@ php artisan key:generate
 ```
 
 ### URL
-- 勤怠打刻トップページ： http://localhost/  ＊アクセスするとログイン認証機能によりログイン画面へ遷移します。
+- 勤怠打刻トップページ： http://localhost/　　
+＊アクセスするとログイン認証機能によりログイン画面へ遷移します。
 
-- 管理画面： http://localhost/admin  ＊管理画面へアクセスするとログイン認証機能によりログイン画面へ遷移します。
+- 管理画面： http://localhost/admin　　
+＊管理画面へアクセスするとログイン認証機能によりログイン画面へ遷移します。
 
 - phpMyAdmin
 http://localhost:8080
