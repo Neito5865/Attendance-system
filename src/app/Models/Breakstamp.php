@@ -18,4 +18,9 @@ class Breakstamp extends Model
     public function timestamp(){
         return $this->belongsTo(Timestamp::class);
     }
+
+    protected $casts = [
+        'break_in' => 'datetime',
+        'break_out' => 'datetime',
+    ];
 }

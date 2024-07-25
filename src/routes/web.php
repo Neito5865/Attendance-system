@@ -20,5 +20,5 @@ Route::middleware('auth')->group(function(){
     Route::post('/work_out', [TimeController::class, 'workOut']);
     Route::post('/break_in', [TimeController::class, 'breakIn']);
     Route::post('/break_out', [TimeController::class, 'breakOut']);
-    Route::get('/attendance', [TimeController::class, 'attendance']);
+    Route::get('/attendance', [TimeController::class, 'attendance'])->name('attendance');
 });

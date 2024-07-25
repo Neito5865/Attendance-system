@@ -38,15 +38,26 @@ class TimeController extends Controller
         $timestamp = Timestamp::where('user_id', $user->id)
         ->where(function($query){
             $query->where('status', 2)->orWhere('status', 3);
-        })->first();
+        })->latest()->first();
 
         if($timestamp){
+            $workOutTime = Carbon::now();
+
+            $breaks = $timestamp->breakstamps()->whereNull('break_out')->get();
+            foreach($breaks as $break){
+                $break->update([
+                    'break_out' => $workOutTime,
+                ]);
+            }
+
             $timestamp->update([
-            'work_out' => Carbon::now(),
+            'work_out' => $workOutTime,
             'status' => 1,
             ]);
+
+            return redirect('/')->with('message', '勤務を終了しました');
         }
-        return redirect('/')->with('message', '勤務を終了しました');
+        return redirect('/')->with('error', '勤務中ではないため、勤務終了の操作ができません');
     }
 
     public function breakIn(Request $request){
@@ -90,7 +101,9 @@ class TimeController extends Controller
         return redirect('/')->with('error', '勤務中ではないため、休憩終了の操作ができません');
     }
 
-    public function attendance(){
-        return view('attendance');
+    public function attendance(Request $request){
+        $date = $request->query('date', Carbon::today()->toDateString());
+        $attendances = Timestamp::whereDate('work_in', $date)->with('user')->paginate(5);
+        return view('attendance', compact('date', 'attendances'));
     }
 }
