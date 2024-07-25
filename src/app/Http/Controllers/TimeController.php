@@ -103,7 +103,7 @@ class TimeController extends Controller
 
     public function attendance(Request $request){
         $date = $request->query('date', Carbon::today()->toDateString());
-        $attendances = Timestamp::whereDate('work_in', $date)->with('user')->get();
+        $attendances = Timestamp::whereDate('work_in', $date)->with('user')->paginate(5);
         return view('attendance', compact('date', 'attendances'));
     }
 }
