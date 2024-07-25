@@ -1,7 +1,7 @@
 # Atte（アット）
 企業の勤怠管理システム。勤怠の打刻とユーザーの勤務時間の管理ができるアプリとなっています。
 
-<img width="1015" alt="top-page" src="https://github.com/user-attachments/assets/0fe8401a-f106-4392-9627-430895a247ed">
+<img width="1113" alt="top-page" src="https://github.com/user-attachments/assets/4fff811d-88d2-42d8-9153-ba4b8692b554">
 
 ## 作成した目的
 人事評価のため。
