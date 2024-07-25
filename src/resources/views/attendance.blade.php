@@ -39,7 +39,7 @@
         <a href="#" class="attendance-account-link__text">アカウントをお持ちの方</a>
     </div>
     <div class="attendance-paginate">
-        {{$attendances->links()}}
+        {{$attendances->appends(['date' => $date])->links()}}
     </div>
 
 </div>
