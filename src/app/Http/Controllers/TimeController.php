@@ -52,9 +52,9 @@ class TimeController extends Controller
                 //同日の場合
                 $breaks = $timestamp->breakstamps()->whereNull('break_out')->get();
                 foreach($breaks as $break){
-                $break->update([
-                    'break_out' => $workOutTime,
-                ]);
+                    $break->update([
+                        'break_out' => $workOutTime,
+                    ]);
                 }
 
                 $timestamp->update([
@@ -66,9 +66,9 @@ class TimeController extends Controller
                 //1日目のレコードを終了
                 $breaks = $timestamp->breakstamps()->whereNull('break_out')->get();
                 foreach($breaks as $break){
-                $break->update([
-                    'break_out' => $workInTime->copy()->endOfDay(),
-                ]);
+                    $break->update([
+                        'break_out' => $workInTime->copy()->endOfDay(),
+                    ]);
                 }
 
                 $timestamp->update([
@@ -140,8 +140,14 @@ class TimeController extends Controller
                     ]);
 
                     //2日目のレコードを作成
+                    $newTimestamp = Timestamp::create([
+                        'user_id' => $user->id,
+                        'work_in' => $breakInTime->copy()->startOfDay()->addDay(),
+                        'status' => 2,
+                    ]);
+
                     Breakstamp::create([
-                        'timestamp_id' => $timestamp->id,
+                        'timestamp_id' => $newTimestamp->id,
                         'break_in' => $breakInTime->copy()->startOfDay()->addDay(),
                         'break_out' => $breakOutTime,
                     ]);
