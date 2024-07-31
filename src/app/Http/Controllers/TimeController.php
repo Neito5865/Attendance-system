@@ -42,56 +42,25 @@ class TimeController extends Controller
     public function workOut(Request $request){
         $user = Auth::user();
         $timestamp = Timestamp::where('user_id', $user->id)
-        ->whereIn('status', [2, 3])->latest()->first();
+        ->where(function($query){
+            $query->where('status', 2)->orWhere('status', 3);
+        })->latest()->first();
 
         if($timestamp){
             $workOutTime = Carbon::now();
-            $workInTime = Carbon::parse($timestamp->work_in);
 
-            if($workInTime->isSameDay($workOutTime)){
-                //同日の場合
-                $breaks = $timestamp->breakstamps()->whereNull('break_out')->get();
-                foreach($breaks as $break){
-                    $break->update([
-                        'break_out' => $workOutTime,
-                    ]);
-                }
-
-                $timestamp->update([
-                    'work_out' => $workOutTime,
-                    'status' => 1,
+            $breaks = $timestamp->breakstamps()->whereNull('break_out')->get();
+            foreach($breaks as $break){
+                $break->update([
+                    'break_out' => $workOutTime,
                 ]);
-            }else{
-                //日付を跨ぐ場合の処理
-                //1日目のレコードを終了
-                $breaks = $timestamp->breakstamps()->whereNull('break_out')->get();
-                foreach($breaks as $break){
-                    $break->update([
-                        'break_out' => $workInTime->copy()->endOfDay(),
-                    ]);
-                }
-
-                $timestamp->update([
-                    'work_out' => $workInTime->copy()->endOfDay(),
-                    'status' => 1,
-                ]);
-
-                //2日目のレコードを作成
-                $newTimestamp = Timestamp::create([
-                    'user_id' => $user->id,
-                    'work_in' => $workInTime->copy()->startOfDay()->addDay(),
-                    'work_out' => $workOutTime,
-                    'status' => 1,
-                ]);
-
-                foreach($breaks as $break){
-                    Breakstamp::create([
-                        'timestamp_id' => $newTimestamp->id,
-                        'break_in' => $workInTime->copy()->startOfDay()->addDay(),
-                        'break_out' => $workOutTime,
-                    ]);
-                }
             }
+
+            $timestamp->update([
+            'work_out' => $workOutTime,
+            'status' => 1,
+            ]);
+
             return redirect('/')->with('message', '勤務を終了しました');
         }
         return redirect('/')->with('error', '勤務中ではないため、勤務終了の操作ができません');
@@ -124,38 +93,12 @@ class TimeController extends Controller
             $break = Breakstamp::where('timestamp_id', $timestamp->id)->whereNull('break_out')->latest()->first();
 
             if($break){
-                $breakOutTime = Carbon::now();
-                $breakInTime = Carbon::parse($break->break_in);
-
-                if($breakInTime->isSameDay($breakOutTime)){
-                    //同日の場合
-                    $break->update([
-                        'break_out' => $breakOutTime,
-                    ]);
-                }else{
-                    //日付を跨ぐ場合
-                    //1日目のレコードを終了
-                    $break->update([
-                        'break_out' => $breakInTime->copy()->endOfDay(),
-                    ]);
-
-                    //2日目のレコードを作成
-                    $newTimestamp = Timestamp::create([
-                        'user_id' => $user->id,
-                        'work_in' => $breakInTime->copy()->startOfDay()->addDay(),
-                        'status' => 2,
-                    ]);
-
-                    Breakstamp::create([
-                        'timestamp_id' => $newTimestamp->id,
-                        'break_in' => $breakInTime->copy()->startOfDay()->addDay(),
-                        'break_out' => $breakOutTime,
-                    ]);
-                }
-                $timestamp->update([
-                    'status' =>2,
+                $break->update([
+                    'break_out' => Carbon::now(),
                 ]);
-
+                $timestamp->update([
+                    'status' => 2,
+                ]);
                 return redirect('/')->with('message', '休憩を終了しました');
             }
 
