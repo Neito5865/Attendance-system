@@ -1,0 +1,141 @@
+.content {
+    max-width: 1260px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 165px;
+}
+
+.date-nav {
+    padding-bottom: 60px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-nav__button {
+    display: block;
+    width: 40px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #214BE0;
+}
+
+.date-nav__link {
+    text-decoration: none;
+    color: #214BE0;
+}
+
+.date-nav__date {
+    line-height: 30px;
+}
+
+.attendance-list-table{
+    max-width: 1260px;
+    overflow-x: auto;
+    margin: 0 auto;
+    /* border-collapse: collapse; */
+    width: 100%;
+}
+
+.attendance-list-table__inner {
+    width: 2020px;
+    border-spacing: 0;
+}
+
+.attendance-list-table__row {
+    width: 100%;
+    border-top: 1px solid #909090;
+}
+
+.attendance-list-table__heading,
+.attendance-list-table__item {
+    font-size: 16px;
+    text-align: center;
+    height: 77px;
+    width: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.attendance-list-table__heading {
+    position: sticky;
+    top: 0;
+    /* ヘッダを固定する */
+    z-index: 1;
+    /* ヘッダを他のコンテンツの上に表示 */
+}
+.attendance-list-table__item:first-child, .attendance-list-table__heading:first-child {
+    width: 160px;
+    background-color: #F2F2F2;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    /* ヘッダの下に配置 */
+    text-align: left;
+}
+
+
+/* ページネーション */
+.attendance-list-paginate {
+    text-align: center;
+}
+
+.attendance-paginate nav {
+    display: inline-block;
+}
+
+.pagination__inner {
+    display: flex;
+    border: 1px solid #E4E8EB;
+}
+
+.pagination__item,
+.pagination__item-current,
+.pagination__arrow {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-left: 2px solid #E4E8EB;
+    vertical-align: top;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    line-height: 50px;
+    background-color: #fff;
+}
+
+.pagination__arrow {
+    width: 40px;
+}
+
+.pagination__arrow:first-child {
+    border-left: none;
+}
+
+.pagination__item a,
+.pagination__arrow a {
+    text-decoration: none;
+    color: #2384CF;
+    width: 100%;
+    height: 100%;
+}
+
+.pagination__item-current {
+    background-color: #2384CF;
+    color: #fff;
+}
+
+.pagination__item-current span,
+.pagination__arrow span {
+    width: 100%;
+    height: 100%;
+}
+
+svg.w-5.h-5 {
+    width: 10px;
+    height: 20px;
+}

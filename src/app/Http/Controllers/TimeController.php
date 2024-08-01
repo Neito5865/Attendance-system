@@ -112,4 +112,14 @@ class TimeController extends Controller
         $attendances = Timestamp::whereDate('work_in', $date)->with('user')->paginate(5);
         return view('attendance', compact('date', 'attendances'));
     }
+
+    public function attendanceList(Request $request){
+        $date = $request->query('date', Carbon::today()->toDateString());
+        $users = User::paginate(10); // ユーザーのリストを取得（必要に応じて調整）
+        $attendances = Timestamp::whereBetween('work_in', [
+            Carbon::parse($date)->startOfMonth()->toDateString(),
+            Carbon::parse($date)->endOfMonth()->toDateString()
+        ])->get();
+        return view('attendance-list', compact('date', 'users', 'attendances'));
+    }
 }
