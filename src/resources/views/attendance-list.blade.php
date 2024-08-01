@@ -29,7 +29,9 @@
                     @for ($i = 1; $i <= \Carbon\Carbon::parse($date)->daysInMonth; $i++)
                         @php
                             $currentDate = \Carbon\Carbon::parse($date)->startOfMonth()->addDays($i - 1)->toDateString();
-                            $attendance = $attendances->where('user_id', $user->id)->where('work_in', 'like', $currentDate . '%')->first();
+                            $attendance = $attendances->first(function($att) use ($user, $currentDate) {
+                                return $att->user_id == $user->id && \Carbon\Carbon::parse($att->work_in)->toDateString() == $currentDate;
+                            });
                         @endphp
                         <td class="attendance-list-table__item">{{ $attendance ? '○' : '×' }}</td>
                     @endfor

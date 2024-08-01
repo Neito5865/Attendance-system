@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('shift:end_day')->dailyAt('00:01');//毎日00:01に実行
+        $schedule->command('shift:end-day')->dailyAt('00:01');//毎日00:01に実行
     }
 
     /**
