@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Timestamp extends Model
 {
@@ -30,6 +31,7 @@ class Timestamp extends Model
         'work_in' => 'datetime',
         'work_out' => 'datetime',
     ];
+
 
     public function getBreakTimeAttribute(){
         $breaks = $this->breakstamps;
