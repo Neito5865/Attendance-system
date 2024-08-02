@@ -7,19 +7,21 @@
 @section('content')
 <div class="verify__content">
     <div class="verify__heading">
-        <h2>
-            認証メールを送信しました
-        </h2>
+        {{ __('Verify Your Email Address') }}
     </div>
     <div class="verify__text">
-        <p>登録メールアドレスに届いたメール本文内の<br>
-        URLへアクセスし、認証を完了してください。</p>
+        @if (session('resent'))
+            <div class="alert alert-success" role="alert">
+                {{ __('A fresh verification link has been sent to your email address.') }}
+            </div>
+        @endif
+
+        {{ __('Before proceeding, please check your email for a verification link.') }}
+        {{ __('If you did not receive the email') }},
+        <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
+        @csrf
+            <input class="verify-submit" type="submit" value="{{ __('click here to request another') }}">
+        </form>
     </div>
-    <form class="verify-form" action="/email/verification-notification" method="post">
-    @csrf
-        <div class="">
-            <input type="submit" value="認証メール再送信">
-        </div>
-    </form>
 </div>
 @endsection
