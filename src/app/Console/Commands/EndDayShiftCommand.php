@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use App\Models\Timestamp;
 use App\Models\Breakstamp;
 use Carbon\Carbon;
@@ -41,37 +42,52 @@ class EndDayShiftCommand extends Command
     public function handle()
     {
         $now = Carbon::now();
-        $endOfDay = $now->copy()->subSecond(); // 23:59:59
-        $startOfDay = $now->copy()->startOfDay(); // 00:00:00
+        $endOfDay = $now->copy()->startOfDay()->subSecond(); // 23:59:59 of the previous day
+        $startOfDay = $now->copy()->startOfDay(); // 00:00:00 of the current day
 
-        $timestamps = Timestamp::whereIn('status', [2, 3]) // 勤務中または休憩中のステータス
-            ->whereNull('work_out')
-            ->whereDate('work_in', '<', $startOfDay) // 日付を跨いでいるレコードを取得
-            ->get();
+        try{
 
-        foreach($timestamps as $timestamp){
-            // 1日目の勤務を終了
-            $timestamp->update([
-                'work_out' => $endOfDay,
-                'status' => 1, // 勤務終了
-            ]);
+            $timestamps = Timestamp::whereIn('status', [2, 3]) // 勤務中または休憩中のステータス
+                ->whereNull('work_out')
+                ->whereDate('work_in', '<', $startOfDay) // 日付を跨いでいるレコードを取得
+                ->get();
 
-            // 2日目の新しい勤務レコードを作成
-            $newTimestamp = Timestamp::create([
-                'user_id' => $timestamp->user_id,
-                'work_in' => $startOfDay,
-                'status' => 2, // 勤務中
-            ]);
 
-            // 休憩中の場合、休憩を終了し、新しい休憩を開始
-            if($timestamp->status == 3){
-                $ongoingBreaks = $timestamp->breakstamps()->whereNull('break_out')->get();
-
-                foreach($ongoingBreaks as $break){
-                    // 1日目の休憩を終了
-                    $break->update([
-                        'break_out' => $endOfDay,
+            foreach ($timestamps as $timestamp) {
+                if ($timestamp->status == 2) {
+                    // 1日目の勤務を終了
+                    $timestamp->update([
+                        'work_out' => $endOfDay,
+                        'status' => 1, // 勤務終了
                     ]);
+
+                    // 2日目の新しい勤務レコードを作成
+                    $newTimestamp = Timestamp::create([
+                        'user_id' => $timestamp->user_id,
+                        'work_in' => $startOfDay,
+                        'status' => 2, // 勤務中
+                    ]);
+                }elseif($timestamp->status == 3){
+                    // 1日目の休憩を終了
+                    $ongoingBreaks = $timestamp->breakstamps()->whereNull('break_out')->get();
+                    foreach ($ongoingBreaks as $break) {
+                        $break->update([
+                        'break_out' => $endOfDay,
+                        ]);
+                    }
+
+                    // 1日目の勤務を終了
+                    $timestamp->update([
+                        'work_out' => $endOfDay,
+                        'status' => 1, // 勤務終了
+                    ]);
+
+                    // 2日目の新しい勤務レコードを作成
+                    $newTimestamp = Timestamp::create([
+                        'user_id' => $timestamp->user_id,
+                        'work_in' => $startOfDay,
+                        'status' => 3, // 休憩中
+                        ]);
 
                     // 2日目の新しい休憩レコードを作成
                     Breakstamp::create([
@@ -80,12 +96,13 @@ class EndDayShiftCommand extends Command
                         'break_out' => null,
                     ]);
                 }
-                // 新しい勤務レコードのステータスを休憩中に設定
-                $newTimestamp->update(['status' => 3]);
             }
-            $this->info("User ID {$timestamp->user_id}'s shift was split across day.");
-        }
 
-        return 0; // コマンドが正常に実行されたことを示す
+            // 処理が正常に終了したことをログに記録
+            Log::info('EndDayShiftCommand executed successfully.');
+        } catch (\Exception $e) {
+            // エラーが発生した場合は、エラーメッセージをログに記録
+            Log::error('EndDayShiftCommand failed: ' . $e->getMessage());
+        }
     }
 }
