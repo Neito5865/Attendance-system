@@ -15,8 +15,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('shift:end-day')->everyMinute();//毎分実行
+        $schedule->command('shift:end-day')->everyMinute()//毎分実行
+                                        ->withoutOverlapping()
+                                        ->runInBackground()
+                                        ->onOneServer()
+                                        ->environments(['production', 'local']);
     }
 
     /**

@@ -41,6 +41,11 @@ class EndDayShiftCommand extends Command
      */
     public function handle()
     {
+        \Log::info('DB_HOST: ' . env('DB_HOST'));
+        \Log::info('DB_DATABASE: ' . env('DB_DATABASE'));
+        \Log::info('DB_USERNAME: ' . env('DB_USERNAME'));
+        \Log::info('DB_PASSWORD: ' . env('DB_PASSWORD'));
+
         $now = Carbon::now();
         $endOfDay = $now->copy()->startOfDay()->subSecond(); // 23:59:59 of the previous day
         $startOfDay = $now->copy()->startOfDay(); // 00:00:00 of the current day
