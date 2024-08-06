@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
+use App\Console\Commands\EndDayShiftCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,11 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('shift:end-day')->everyMinute()//毎分実行
-                                        ->withoutOverlapping()
-                                        ->runInBackground()
-                                        ->onOneServer()
-                                        ->environments(['production', 'local']);
+        $schedule->command('shift:end-day')->everyMinute();
     }
 
     /**

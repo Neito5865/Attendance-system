@@ -104,10 +104,10 @@ class EndDayShiftCommand extends Command
             }
 
             // 処理が正常に終了したことをログに記録
-            Log::info('EndDayShiftCommand executed successfully.');
+            \Log::info('EndDayShiftCommand executed successfully.');
         } catch (\Exception $e) {
             // エラーが発生した場合は、エラーメッセージをログに記録
-            Log::error('EndDayShiftCommand failed: ' . $e->getMessage());
+            \Log::error('EndDayShiftCommand failed: ' . $e->getMessage());
         }
     }
 }
