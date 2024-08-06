@@ -63,6 +63,23 @@ return [
             ]) : [],
         ],
 
+        'mysql_schedule' => [
+            "driver" => "mysql",
+            "url" => null,
+            "host" => "mysql",
+            "port" => "3306",
+            "database" => "laravel_db",
+            "username" => "laravel_user",
+            "password" => "laravel_pass",
+            "unix_socket" => "",
+            "charset" => "utf8mb4",
+            "collation" => "utf8mb4_unicode_ci",
+            "prefix" => "",
+            "prefix_indexes" => true,
+            "strict" => true,
+            "engine" => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

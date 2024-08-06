@@ -3,10 +3,12 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Timestamp;
 use App\Models\Breakstamp;
 use Carbon\Carbon;
+
 
 class EndDayShiftCommand extends Command
 {
@@ -41,10 +43,6 @@ class EndDayShiftCommand extends Command
      */
     public function handle()
     {
-        \Log::info('DB_HOST: ' . env('DB_HOST'));
-        \Log::info('DB_DATABASE: ' . env('DB_DATABASE'));
-        \Log::info('DB_USERNAME: ' . env('DB_USERNAME'));
-        \Log::info('DB_PASSWORD: ' . env('DB_PASSWORD'));
 
         $now = Carbon::now();
         $endOfDay = $now->copy()->startOfDay()->subSecond(); // 23:59:59 of the previous day

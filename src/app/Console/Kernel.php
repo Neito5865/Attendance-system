@@ -5,10 +5,12 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
-use App\Console\Commands\EndDayShiftCommand;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        Commands\EndDayShiftCommand::class,
+    ];
     /**
      * Define the application's command schedule.
      *
@@ -17,7 +19,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('shift:end-day')->everyMinute();
+        $schedule->command('shift:end-day')->dailyAt('7:30');
     }
 
     /**
