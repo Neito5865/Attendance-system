@@ -27,11 +27,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // VerifyEmail::toMailUsing(function ($notifiable, $url) {
-        //     return (new MailMessage())
-        //         ->subject(__('Verify Email Address'))
-        //         ->line(__('Click the button below to verify your email address.'))
-        //         ->action(__('Verify Email Address'), $url);
-        // });
+        VerifyEmail::toMailUsing(function ($notifiable, $url) {
+            return (new MailMessage)
+            ->subject('認証メール通知')
+            ->line('以下のボタンをクリックして、メールアドレスを認証してください。')
+            ->action('メールアドレスを認証する', $url);
+        });
     }
 }

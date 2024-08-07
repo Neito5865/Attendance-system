@@ -7,7 +7,7 @@
 @section('content')
 <div class="verify__content">
     <div class="verify__heading">
-        {{ __('Verify Your Email Address') }}
+        <h2>認証メールを送信しました</h2>
     </div>
     <div class="verify__text">
         @if (session('resent'))
@@ -16,11 +16,12 @@
             </div>
         @endif
 
-        {{ __('Before proceeding, please check your email for a verification link.') }}
-        {{ __('If you did not receive the email') }},
+        <p>あなたの登録メールアドレスへ本人確認のための認証メールが送信されました。<br>操作を続ける前に、認証メール本文内のリンクをクリックしてください。</p>
+
+        <p>認証メールが確認できない場合は、以下のボタンで再送してください。</p>
         <form class="verify-form" method="POST" action="{{ route('verification.send') }}">
         @csrf
-            <input class="verify-submit" type="submit" value="{{ __('click here to request another') }}">
+            <input class="verify-submit" type="submit" value="{{ __('認証メールを再送する') }}">
         </form>
     </div>
 </div>

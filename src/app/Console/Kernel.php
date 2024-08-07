@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('shift:end-day')->dailyAt('7:30');
+        $schedule->command('shift:end-day')->dailyAt('00:00');
     }
 
     /**
