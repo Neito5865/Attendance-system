@@ -27,7 +27,7 @@
 - MySQL 8.0.26
 
 ## テーブル設計
-< --- テーブル設計の画像 --- >
+<img width="787" alt="table-design" src="https://github.com/user-attachments/assets/cf85fda8-2084-415c-9927-62d856920eda">
 
 ## ER図
 ![er drawio](https://github.com/user-attachments/assets/119c15a9-e7f2-4e48-a318-91026a0b0e87)
