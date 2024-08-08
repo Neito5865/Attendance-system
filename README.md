@@ -62,7 +62,7 @@ composer install
 cp .env.example .env
 ```
 
-4. 環境変数を変更する  
+4. 環境変数を変更する
 .envファイルの11行目以降を以下のように編集する
 ```
 DB_CONNECTION=mysql
@@ -76,6 +76,10 @@ DB_PASSWORD=laravel_pass
 5. キーを作成する
 ```
 php artisan key:generate
+```
+6. マイグレーションの実行
+```
+php artisan migrate
 ```
 
 ### URL
