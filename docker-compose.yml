@@ -52,6 +52,11 @@ services:
         networks:
             - app-network
 
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - "8025:8025"
+
 networks:
     app-network:
         driver: bridge
