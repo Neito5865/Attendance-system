@@ -18,6 +18,8 @@ use App\Http\Requests\LoginRequest;
 use Laravel\Fortify\Http\Requests\RegisterRequest as FortifyRegisterRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -43,6 +45,8 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::registerView(function(){
             return view('auth.register');
         });
+
+        Fortify::createUsersUsing(RegisterRequest::class);
 
         Fortify::loginView(function(){
             return view('auth.login');
