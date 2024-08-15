@@ -81,6 +81,10 @@ php artisan key:generate
 ```
 php artisan migrate
 ```
+7. シーディングの実行
+```
+php artisan db:seed
+```
 
 ### URL
 - 勤怠打刻トップページ： http://localhost/  
@@ -93,4 +97,6 @@ php artisan migrate
 http://localhost:8080
 
 ## その他
-アカウントの種類（テストユーザーなど）
+以下のユーザー情報でログインを行なってください。
+メールアドレス：test@example.com
+パスワード：password
