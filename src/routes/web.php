@@ -19,18 +19,15 @@ use Illuminate\Support\Facades\Mail;
 
 
 
-// メール認証通知を表示するルート
 Route::get('/email/verify', function(){
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-// メール認証リンクを検証するルート
 Route::get('/email/verify/{id}/{hash}', function(EmailVerificationRequest $request){
     $request->fulfill();
-    return redirect('/'); //認証後のリダイレクト先
+    return redirect('/');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-// メール認証リンクを再送信するルート
 Route::post('/email/verification-notification', function(Request $request){
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');

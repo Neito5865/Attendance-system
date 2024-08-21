@@ -73,12 +73,10 @@
     position: sticky;
     left: 0;
     z-index: 2;
-    /* ヘッダの下に配置 */
     text-align: left;
 }
 
 
-/* ページネーション */
 .attendance-list-paginate {
     text-align: center;
 }

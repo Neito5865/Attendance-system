@@ -17,7 +17,6 @@ class AttendanceTest extends TestCase
     {
         parent::setUp();
 
-        // テスト中のCSRFトークン検証を無効化
         $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
     }
 
@@ -32,16 +31,14 @@ class AttendanceTest extends TestCase
         Mail::fake();
 
         $response = $this->postJson('/register', [
-           'name' => str_repeat('a', 192), // 192文字の名前
-           'email' => 'test_' . uniqid() . '@example.com', // 必要な他のフィールドも追加
-           'password' => 'password', // 必要な他のフィールドも追加
-           'password_confirmation' => 'password', // 必要な他のフィールドも追加
+            'name' => str_repeat('a', 192),
+            'email' => 'test_' . uniqid() . '@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
-       // ステータスコード422（バリデーションエラー）を確認
         $response->assertStatus(422);
 
-       // JSONレスポンスにエラーが含まれていることを確認
         $response->assertJsonValidationErrors(['name']);
     }
 }
