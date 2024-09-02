@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Mail;
 */
 
 
-
-// Route::get('/email/verify', function(){
-//     return view('auth.verify-email');
-// })->name('verification.notice');
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware(['auth'])->name('verification.notice');
