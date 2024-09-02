@@ -65,3 +65,8 @@
     color: #214BE0;
     text-decoration: none;
 }
+
+.backtop-link{
+    display: block;
+    margin-top: 10px;
+}

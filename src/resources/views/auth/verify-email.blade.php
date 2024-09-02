@@ -23,6 +23,9 @@
         @csrf
             <input class="verify-submit" type="submit" value="{{ __('認証メールを再送する') }}">
         </form>
+        <div class="backtop">
+            <a class="backtop-link" href="{{ route('login') }}">ログインページへ戻る</a>
+        </div>
     </div>
 </div>
 @endsection
