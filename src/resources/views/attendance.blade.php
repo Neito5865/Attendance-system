@@ -5,6 +5,13 @@
 @endsection
 
 @section('content')
+<div class="attendance__alert">
+        @if(session('error'))
+            <div class="attendance__alert--error">
+            {{ session('error') }}
+            </div>
+        @endif
+</div>
 <div class="content">
     <div class="date-nav">
         <button class="date-nav__button">

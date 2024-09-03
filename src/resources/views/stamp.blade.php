@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="stamp__akert">
+<div class="stamp__alert">
     @if(session('message'))
     <div class="stamp__alert--success">
         {{session('message')}}

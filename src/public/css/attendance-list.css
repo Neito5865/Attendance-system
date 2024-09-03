@@ -36,7 +36,6 @@
     max-width: 1260px;
     overflow-x: auto;
     margin: 0 auto;
-    /* border-collapse: collapse; */
     width: 100%;
 }
 
@@ -63,9 +62,7 @@
 .attendance-list-table__heading {
     position: sticky;
     top: 0;
-    /* ヘッダを固定する */
     z-index: 1;
-    /* ヘッダを他のコンテンツの上に表示 */
 }
 .attendance-list-table__item:first-child, .attendance-list-table__heading:first-child {
     width: 160px;

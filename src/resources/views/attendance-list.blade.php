@@ -8,11 +8,11 @@
 <div class="content">
     <div class="date-nav">
         <button class="date-nav__button">
-            <a class="date-nav__link" href="{{route('attendance-list', ['date' => \Carbon\Carbon::parse($date)->subMonth()->toDateString()])}}">＜</a>
+            <a class="date-nav__link" href="{{route('attendance-list', ['date' => \Carbon\Carbon::parse($date)->subMonth()->format('Y-m')])}}">＜</a>
         </button>
         <div class="date-nav__date">{{\Carbon\Carbon::parse($date)->format('Y年m月')}}</div>
         <button class="date-nav__button">
-            <a class="date-nav__link" href="{{route('attendance-list', ['date' => \Carbon\Carbon::parse($date)->addMonth()->toDateString()])}}">＞</a>
+            <a class="date-nav__link" href="{{route('attendance-list', ['date' => \Carbon\Carbon::parse($date)->addMonth()->format('Y-m')])}}">＞</a>
         </button>
     </div>
     <div class="attendance-list-table">

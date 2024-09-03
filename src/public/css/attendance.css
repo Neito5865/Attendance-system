@@ -5,6 +5,12 @@
     padding-bottom: 165px;
 }
 
+.attendance__alert--error {
+    padding: 10px 30px;
+    background-color: #ffdede;
+    color: #c52626;
+}
+
 .date-nav {
     padding-bottom: 60px;
     font-size: 24px;
